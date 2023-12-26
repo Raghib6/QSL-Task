@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mt-3">
+    <div class="row">
+        <!-- Filter Section -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Filter</h5>
+                </div>
+                <div class="card-body">
+                    <form hx-get="{% url 'products' slug %}" hx-trigger="change" hx-target="body">
+                    <h6 class="card-subtitle mb-2 text-muted">Price Range</h6>
+                    {{form.price}}
+                    <br>
+                    <br>
+                    <h6 class="card-subtitle mb-2 text-muted">Sellers</h6>
+                    <hr>
+                    {{form.seller}}
+                    <br>
+                    <h6 class="card-subtitle mb-2 text-muted">Category</h6>
+                    <hr>
+                        {{form.category}}
+                        <br>
+                    <h6 class="card-subtitle mb-2 text-muted">Brand</h6>
+                    <hr>
+                        {{form.brand}}
+                        <br>
+                    <h6 class="card-subtitle mb-2 text-muted">Warranty</h6>
+                    <hr>
+                        {{form.warranty}}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            {% if products %}
+
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-4 mb-2">
+                        <div class="card">
+                            <img src="{{ product.product_image.url }}" class="card-img-top" alt="{{ product.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">{{ product.name }}</h5>
+                                <p class="card-text text-center">Price: {{ product.price }} Tk</p>
+                                <p class="card-text text-center">Warranty: {{ product.warranty }}</p>
+                                <div class="text-center">
+                                    <button class="btn btn-info">Buy Now</button>
+                                <button class="btn btn-primary">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% else %}
+	<div>
+		<h2 class="text-center">No result found.</h2>
+	</div>
+
+	{% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %} 
